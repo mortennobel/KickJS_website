@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>jsonTest</servlet-name>
+        <servlet-class>org.kickjs.test.JSONTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsonTest</servlet-name>
+        <url-pattern>/test/jsonTest</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginInfo</servlet-name>
+        <servlet-class>org.kickjs.shared.LoginInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginInfo</servlet-name>
+        <url-pattern>/LoginInfo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>org.kickjs.shared.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateShader</servlet-name>
+        <servlet-class>org.kickjs.shadereditor.UpdateShader</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateShader</servlet-name>
+        <url-pattern>/example/shader_editor/UpdateShader</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetShader</servlet-name>
+        <servlet-class>org.kickjs.shadereditor.GetShader</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetShader</servlet-name>
+        <url-pattern>/example/shader_editor/GetShader</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ImageProxy</servlet-name>
+        <servlet-class>org.kickjs.shared.ImageProxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImageProxy</servlet-name>
+        <url-pattern>/images/imageProxy</url-pattern>
+    </servlet-mapping>
+
+
+<!--
+    <servlet>
+        <servlet-name>sign</servlet-name>
+        <servlet-class>guestbook.SignGuestbookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sign</servlet-name>
+        <url-pattern>/sign</url-pattern>
+    </servlet-mapping>
+    -->
+
+    <mime-mapping>
+        <extension>dae</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -1,0 +1,129 @@
+<html>
+<head>
+    <script>
+        "use strict";
+        var logoutURL;
+        var loginURL;
+        var username;
+
+        function loginInfo(){
+            var oReq = new XMLHttpRequest();
+
+            function handler()
+            {
+                if (oReq.readyState == 4 /* complete */) {
+                    if (oReq.status == 200) {
+                        var obj = JSON.parse(oReq.responseText);
+                        if (obj.logoutURL){
+                            logoutURL = obj.logoutURL;
+                            username = obj.username;
+                            document.getElementById('LogoutButton').style.display = "block";
+                            document.getElementById('username').style.display = "block";
+                            document.getElementById('username').innerHTML = "Logged in as "+username;
+                            document.getElementById('LoginButton').style.display = "none";
+                        } else {
+                            loginURL = obj.loginURL;
+                            document.getElementById('LogoutButton').style.display = "none";
+                            document.getElementById('username').style.display = "none";
+                            document.getElementById('LoginButton').style.display = "block";
+                        }
+                    }
+                }
+            }
+            oReq.open("GET", "/LoginInfo?ts="+new Date().getTime()+"&url="+document.location.href, true);
+            oReq.onreadystatechange = handler;
+            oReq.send();
+        }
+
+        loginInfo();
+
+        function logout(){
+            document.location = logoutURL;
+        }
+
+        function login(){
+            document.location = loginURL;
+        }
+
+        function saveData(){
+            var obj = {
+                id:document.getElementById('id').value,
+                name:document.getElementById('name').value,
+                owner:username,
+                data:document.getElementById('data').value
+            };
+            var objStr = JSON.stringify(obj);
+            var oReq = new XMLHttpRequest();
+
+            function handler()
+            {
+                if (oReq.readyState == 4 /* complete */) {
+                    if (oReq.status == 200) {
+                        var obj = JSON.parse(oReq.responseText);
+                        document.getElementById('id').value = obj.id;
+                        console.log(obj.message);
+                    }
+                }
+            }
+            oReq.open("POST", "/example/shader_editor/UpdateShader", true);
+            oReq.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+            oReq.onreadystatechange = handler;
+            oReq.send(objStr);
+        }
+
+        function loadData(){
+            var oReq = new XMLHttpRequest();
+
+            function handler()
+            {
+                if (oReq.readyState == 4 /* complete */) {
+                    if (oReq.status == 200) {
+                        var obj = JSON.parse(oReq.responseText);
+                        document.getElementById('name').value = obj.name;
+                        document.getElementById('data').value = obj.data;
+                    }
+                }
+            }
+            var id = document.getElementById('id').value;
+            oReq.open("GET", "/example/shader_editor/GetShader?id="+id, true);
+            oReq.onreadystatechange = handler;
+            oReq.send();
+        }
+
+        function listData(){
+            var oReq = new XMLHttpRequest();
+
+            function handler()
+            {
+                if (oReq.readyState == 4 /* complete */) {
+                    if (oReq.status == 200) {
+                        var obj = JSON.parse(oReq.responseText);
+                        var shaderList = obj.shaderList;
+                        var str = "";
+                        for (var i=0;i<shaderList.length;i++){
+                            str += shaderList[i].name+ " "+shaderList[i].id+"\n";
+                        }
+                        document.getElementById('data').value = str;
+                    }
+                }
+            }
+            var id = document.getElementById('id').value;
+            oReq.open("GET", "/example/shader_editor/GetShader", true);
+            oReq.onreadystatechange = handler;
+            oReq.send();
+        }
+
+    </script>
+</head>
+<body>
+    <div id="username"></div>
+    <button onclick="logout();" id="LogoutButton" style="display: none;">logout</button>
+    <button onclick="login();" id="LoginButton"  style="display: none;">Login</button>
+    <button onclick="saveData();">Save data</button>
+    <button onclick="loadData();">Load data</button>
+    <button onclick="listData();">List data</button><br>
+    ID: <input type="text" name="id" value="" id="id"><br>
+    Name: <input type="text" name="name" value="" id="name"><br>
+    <textarea id="data" style="width:1000px;height:200px;"></textarea>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!-- Indices written at Sun, 30 Oct 2011 12:50:06 UTC -->
+
+<datastore-indexes>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="org.kickjs.shared.Shader" ancestor="true" source="auto">
+        <property name="lastModified" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
