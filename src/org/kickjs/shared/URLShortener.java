@@ -16,9 +16,7 @@ public class URLShortener {
         try {
             InputStream is = URLShortener.class.getResourceAsStream("ServerConstants.properties");
             properties.load(is);
-            String res = properties.getProperty(name);
-            System.out.println(res);
-            return res;
+            return properties.getProperty(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
