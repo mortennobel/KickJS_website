@@ -12,8 +12,8 @@ window.shaderEditor = new (function(){
         thisObj = this,
         isRotating = true,
         meshsetting,
-        setMesh = function (meshFactoryFunc,size){
-            _meshRenderer.mesh = meshFactoryFunc(_engine,size);
+        setMesh = function (url){
+            _meshRenderer.mesh = _engine.resourceManager.getMesh(url);
         };
 
     this.textures = [];
@@ -56,13 +56,13 @@ window.shaderEditor = new (function(){
             meshsetting = settings.meshsetting;
             switch (meshsetting){
                 case "cube":
-                    setMesh(KICK.mesh.MeshFactory.createCube,0.5);
+                    setMesh("kickjs://mesh/cube/?length=0.5");
                 break;
                 case "sphere":
-                    setMesh(KICK.mesh.MeshFactory.createUVSphere);
+                    setMesh('kickjs://mesh/uvsphere/');
                 break;
                 default:
-                    setMesh(KICK.mesh.MeshFactory.createPlane);
+                    setMesh('kickjs://mesh/plane/');
                 break;
             }
         }
@@ -79,11 +79,60 @@ window.shaderEditor = new (function(){
         }
     };
 
+    /**
+     * @method updateTexture
+     * @param texture
+     * @param config
+     * @return {KICK.texture.Texture}
+     */
+    this.updateTexture = function(texture,config, fnSetImageSrc){
+        for (var name in config){
+            if (typeof name === 'string'){
+                try{
+                texture[name] = config[name];
+                } catch (ignore){}
+            }
+        }
+        var loadImageUsingProxy = function(){
+            var imgProxied = new Image();
+            imgProxied.onload = function(){
+                try{
+                    texture.setImage(imgProxied,config.dataURI);
+                } catch (e){
+                    logFn("Error loading texture "+config.dataURI.substring(0,100));
+                }
+            };
+            console.log("Loading using proxy "+thisObj.getWrappedImageSource(config.dataURI));
+            imgProxied.src = thisObj.getWrappedImageSource(config.dataURI);
+            if (fnSetImageSrc){
+                fnSetImageSrc(thisObj.getWrappedImageSource(config.dataURI));
+            }
+        };
+        var img = new Image();
+        img.onload = function(){
+            try{
+                texture.setImage(img,config.dataURI);
+            } catch (e){
+                console.log("Exception when loading image - trying to load using image proxy",e);
+                loadImageUsingProxy();
+            }
+        };
+        img.onerror = function(e){
+            console.log("Error using image - trying to load using image proxy",e);
+            loadImageUsingProxy();
+        };
+        img.crossOrigin = "anonymous"; // Ask for a CORS image
+        img.src = config.dataURI;
+        if (fnSetImageSrc){
+            fnSetImageSrc(config.dataURI);
+        }
+    };
+
     var loadMaterial = function (shaderData){
         var textures = shaderData.textureData,
             materialUniforms = shaderData.material.uniforms;
         shader = new KICK.material.Shader(_engine,shaderData.shader);
-        shader.faceCulling = KICK.core.Constants.NONE;
+        shader.faceCulling = KICK.core.Constants.GL_NONE;
         var missingAttributes = _meshRenderer.mesh.verify(shader);
         if (missingAttributes){
             logFn("Missing mesh vertex attributes.");
@@ -94,16 +143,9 @@ window.shaderEditor = new (function(){
         for (var i=0;i<textures.length;i++){
             (function newScope(){
                 var textureConf = textures[i],
-                    t = new KICK.texture.Texture(_engine,textureConf);
+                    t = new KICK.texture.Texture(_engine);
                 textureMapping[textureConf.uid] = t;
-                var img = new Image();
-                img.onload = function(){
-                    t.setImage(img,textureConf.dataURI);
-                };
-                img.onerror = function(){
-                    logFn("Error loading texture "+textureConf.dataURI.substring(0,100));
-                };
-                img.src = thisObj.getWrappedImageSource(textureConf.dataURI);
+                thisObj.updateTexture(t,textureConf);
                 thisObj.textures.push(t);
             })();
         }
@@ -122,6 +164,9 @@ window.shaderEditor = new (function(){
 
     //
     this.getWrappedImageSource = function(imgSrc){
+        if (!imgSrc){
+            return "";
+        }
         var origin = location.origin;
         if (!origin){
             origin = location.protocol+"//"+location.host;
@@ -174,7 +219,7 @@ window.shaderEditor = new (function(){
 
             var gameObject = _engine.activeScene.createGameObject();
             _meshRenderer = new KICK.scene.MeshRenderer();
-            setMesh(KICK.mesh.MeshFactory.createPlane);
+            setMesh("kickjs://mesh/plane/");
             if (window.shader){
                 // load saved content
                 loadMaterial(window.shader);

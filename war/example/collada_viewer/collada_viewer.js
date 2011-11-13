@@ -11,12 +11,13 @@ function destroyAllMeshRenderersInScene(){
 function load(xmlDom,url){
     destroyAllMeshRenderersInScene();
 
-    var gameObjectsCreated = KICK.importer.ColladaImporter.loadCollada(xmlDom,engine);
+    var gameObjectsCreated = KICK.importer.ColladaImporter.loadCollada(xmlDom,engine,null,true);
     for (var i=0;i<gameObjectsCreated.length;i++){
         var gameObject = gameObjectsCreated[i];
-        var isDuck = url==="duck.dae";
+        var isDuck = url==="duck.dae" || url==="duck_triangulate.dae";
         if (isDuck){
             gameObject.transform.localScale = [0.01,0.01,0.01];
+
         }
         var meshRenderer = gameObject.getComponentOfType(KICK.scene.MeshRenderer);
         if (meshRenderer){
@@ -43,7 +44,6 @@ function loadCollada(url){
 
 var material;
 var duckMaterial;
-
 function duckClicked(){
     loadCollada("duck.dae");
 
@@ -155,14 +155,15 @@ function initDuckTexture(){
 }
 
 function initLights(){
-
     var ambientlightGameObject = engine.activeScene.createGameObject();
+    ambientlightGameObject.name = "ambient light";
     var ambientLight = new KICK.scene.Light({type :KICK.core.Constants._LIGHT_TYPE_AMBIENT});
     ambientLight.color = [0.1,0.1,0.1,1];
     ambientlightGameObject.addComponent(ambientLight);
 
 
     var lightGameObject = engine.activeScene.createGameObject();
+    lightGameObject.name = "directional light";
     var light = new KICK.scene.Light(
         {
             type:KICK.core.Constants._LIGHT_TYPE_DIRECTIONAL,
@@ -176,9 +177,10 @@ function initLights(){
 
 function initKick() {
     engine = new KICK.core.Engine('canvas',{
- //       enableDebugContext: true
+        enableDebugContext: true
     });
     var cameraObject = engine.activeScene.createGameObject();
+    cameraObject.name = "Camera";
     var camera = new KICK.scene.Camera({
         clearColor: [0,0,0,1],
         fieldOfView:60
@@ -188,8 +190,9 @@ function initKick() {
     addRotatorComponent(cameraObject);
 
     var gameObject = engine.activeScene.createGameObject();
+    gameObject.name = "Mesh";
     meshRenderer = new KICK.scene.MeshRenderer();
-    setMesh(KICK.mesh.MeshFactory.createUVSphere, 0.5);
+    meshRenderer.mesh = engine.resourceManager.getMesh("kickjs://mesh/uvsphere/?radius=0.5");
     material = createMaterial('vertexShaderColor','fragmentShader');
 
     duckMaterial = createMaterial('vertexShaderColorImg','fragmentShaderImg');
@@ -198,19 +201,20 @@ function initKick() {
     initLights();
 
     gameObject.addComponent(meshRenderer);
-
-
 }
 
-function UVSphere(){
-    setMesh(KICK.mesh.MeshFactory.createUVSphere, 2);
+function pauseResume(){
+    engine.paused = !engine.paused;
+    this.innerHTML = engine.paused? "Play":"Pause";
 }
 
 window.addEventListener("load",function(){
     initKick();
     document.getElementById("duckButton").addEventListener("click", duckClicked,false);
     document.getElementById("cubeButton").addEventListener("click", cubeClicked,false);
+    document.getElementById("pauseButton").addEventListener("click", pauseResume,false);
     document.getElementById("file").onchange = function() {
           loadClicked(this.files[0]);
         };
+
 },false);

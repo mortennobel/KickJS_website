@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
+import java.util.logging.Logger;
+
 import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheException;
 import net.sf.jsr107cache.CacheFactory;
@@ -20,6 +22,8 @@ import net.sf.jsr107cache.CacheManager;
  * Proxy image requests
  */
 public class ImageProxy extends HttpServlet {
+
+    private static final Logger log = Logger.getLogger(ImageProxy.class.getName());
 
     private static final int MAX_IMAGE_SIZE = 1048576;
 
@@ -79,6 +83,8 @@ public class ImageProxy extends HttpServlet {
         int responseCode = urlCon.getResponseCode();
         if (responseCode != HttpsURLConnection.HTTP_OK){
             response.sendRedirect("/images/imageUnavailable.png");
+            log.info("Server responded " + responseCode + " url " + url);
+            System.out.println("Server responded "+responseCode+" url "+url);
             return null;
         }
         InputStream is = urlCon.getInputStream();

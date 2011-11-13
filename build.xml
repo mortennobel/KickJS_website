@@ -1,5 +1,5 @@
 <project name="KICK.js">
-  <property name="appengine.sdk" location="/project/javalibs/appengine-java-sdk-1.5.5" />
+  <property name="appengine.sdk" location="/project/javalibs/appengine-java-sdk-1.6.0" />
 
   <import file="${appengine.sdk}/config/user/ant-macros.xml" />
 
