@@ -1,4 +1,4 @@
-//(function (){
+(function (){
     "use strict";
     function createMenuItem(parent, label, link){
         var li = document.createElement("li");
@@ -18,7 +18,7 @@
         li.appendChild(a);
         a.className = "yui3-menu-label";
         a.href = "#"+id;
-        a.innerText = label;
+        a.appendChild(document.createTextNode(label));
         var subMenu = document.createElement("div");
         subMenu.className = "yui3-menu";
         subMenu.id = id;
@@ -61,16 +61,16 @@
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
     }
 
-    "use strict";
+    if (!window.YUI){
+        console.log("YUI not loaded");
+        return;
+    }
+
     window.YUI().use('node-menunav', function (Y) {
-        if (!window.YUI){
-            console.log("YUI not loaded");
-            return;
-        }
         buildTopMenu();
 
         var menu = Y.one("#topmenu");
 
         menu.plug(Y.Plugin.NodeMenuNav);
     });
-//})();
+})();
