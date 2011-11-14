@@ -57,6 +57,7 @@
         var examplesSubMenu = buildSubMenu(ul,"Examples","examples");
         createMenuItem(examplesSubMenu, "Shader editor", "/example/shader_editor/shader_editor.html");
         createMenuItem(examplesSubMenu, "Video ascii art", "/example/video_ascii_art/Video_Ascii_Art.html");
+        createMenuItem(examplesSubMenu, "Collada import", "/example/collada_viewer/collada_viewer.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
     }
