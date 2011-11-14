@@ -1,5 +1,21 @@
 // Current color theme is http://colorschemedesigner.com/#1i11UfvpEw0w0
 
+#doc {
+    margin:auto; /* center in viewport */
+    width: 900px; /* fix page width */
+}
+
+/* arbitrary content styling */
+#hd, .yui3-g .content, #ft {
+    border: 5px solid #ccc;
+    height: 400px;
+    margin-right: 10px; /* gutter between columns */
+}
+
+#hd, #ft {
+    height: 40px;
+}
+
 #wrapper{
     font-family: 'Verdana', serif;
     font-size: 14px;
@@ -34,7 +50,7 @@ a:active {color:#CCB769;}  /* selected link */
 h1#BigFont {
     font-size: 200px;
     margin-bottom: 0;
-    margin-top: 0;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -72,17 +88,12 @@ h1#BigFont {
     padding: 20px 20px 20px 20px;
 }
 
-.example_left{
+.example_panel{
     width: 270px;
     float: left;
     margin-bottom: 30px;
+    text-align: center;
 }
-.example_right{
-    width: 270px;
-    float: right;
-    margin-bottom: 30px;
-}
-
 
 /* ******************************************************************** */
 /* Clearfix: http://csscreator.com/attributes/containedfloat.php        */
