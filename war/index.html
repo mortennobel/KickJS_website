@@ -21,11 +21,11 @@
 <div id="page">
 <header>
 </header>
-<article>
+<article class="content">
     <h1 id="BigFont">Kick<span id="BigUpper">JS</span></h1>
     <div id="wrapper" class="clearfix">
 		<div id="twocols">
-            <div id="maincol">
+            <div id="maincol" class="content">
                 <h1>About</h1>
                 KickJS is a WebGL based game engine build for modern web browsers such as the most recent version of
                 Chrome and Firefox. The source code is Open Source (<a href="https://github.com/mortennobel/KickJS/blob/master/license.txt">BSD New License</a>)
@@ -37,77 +37,79 @@
                 <div  class="example_panel"><a href="example/video_ascii_art/Video_Ascii_Art.html"><img src="images/example_video_ascii_art.jpg" title="Video ascii art"></a>
                     <a href="example/video_ascii_art/Video_Ascii_Art.html">Video ascii art</a>
                 </div>
-                <div class="example_panel"><a href="example/collada_viewer/collada_viewer.html"><img src="images/example_collada_import.jpg" title="Collada import"></a>
-                    <a href="example/collada_viewer/collada_viewer.html">Collada import</a>
-                </div>
-                <!--<div  class="example_panel"><a href="example/video_ascii_art/Video_Ascii_Art.html"><img src="images/example_video_ascii_art.jpg" title="Video ascii art"></a>-->
-                    <!--<a href="example/video_ascii_art/Video_Ascii_Art.html">Video ascii art (right)</a>-->
+                <!--<div class="example_panel"><a href="example/collada_viewer/collada_viewer.html"><img src="images/example_collada_import.jpg" title="Collada import"></a>-->
+                    <!--<a href="example/collada_viewer/collada_viewer.html">Collada import</a>-->
                 <!--</div>-->
+                
                 <br clear="all"/>
                 <h1>Getting started</h1>
                 The best way to get started is to download the library from <a href="https://github.com/mortennobel/KickJS/">GitHub</a>
-                and take a look at the files in the test folder. Each of these files contains code that uses a single or
+                and take a look at the files in the <a href="https://github.com/mortennobel/KickJS/tree/master/example/tutorial">tutorial folder</a>. Each of these files contains code that uses a single or
                 a few features of the library. Also take a look at the <a href="api/index.html">API documentation</a>.
             </div>
-            <div id="rightcol">
+            <div id="rightcol" class="content">
                 <h2>KickJS mentions</h2>
                 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
                 <script>
-                    new TWTR.Widget({
-                      version: 2,
-                      type: 'search',
-                      search: 'Kickjs',
-                      interval: 15000,
-                      title: '',
-                      subject: 'KickJS tweets',
-                      width: 260,
-                      height: 300,
-                      theme: {
-                        shell: {
-                          background: '#998D62',
-                          color: '#ffffff'
-                        },
-                        tweets: {
-                          background: '#ffffff',
-                          color: '#444444',
-                          links: '#857022'
-                        }
-                      },
-                      features: {
-                        scrollbar: false,
-                        loop: false,
-                        live: true,
-                        behavior: 'default'
-                      }
-                    }).render().start();
+                    (function(){
+                        new TWTR.Widget({
+                            version: 2,
+                            type: 'search',
+                            search: 'Kickjs',
+                            interval: 15000,
+                            title: '',
+                            subject: 'KickJS tweets',
+                            width: 260,
+                            height: 300,
+                            theme: {
+                                shell: {
+                                    background: '#998D62',
+                                    color: '#ffffff'
+                                },
+                                tweets: {
+                                    background: '#ffffff',
+                                    color: '#444444',
+                                    links: '#857022'
+                                }
+                            },
+                            features: {
+                                scrollbar: false,
+                                loop: false,
+                                live: true,
+                                behavior: 'default'
+                            }
+                        }).render().start();
+                    })();
                 </script>
                 <h2>KickJS tweets</h2>
                 <script>
-                    new TWTR.Widget({
-                      version: 2,
-                      type: 'profile',
-                      rpp: 6,
-                      interval: 30000,
-                      width: 260,
-                      height: 300,
-                      theme: {
-                        shell: {
-                          background: '#998D62',
-                          color: '#ffffff'
-                        },
-                        tweets: {
-                          background: '#ffffff',
-                          color: '#444444',
-                          links: '#857022'
-                        }
-                      },
-                      features: {
-                        scrollbar: false,
-                        loop: false,
-                        live: false,
-                        behavior: 'all'
-                      }
-                    }).render().setUser('KickJS').start();
+                    (function(){
+                        new TWTR.Widget({
+                            version: 2,
+                            type: 'profile',
+                            rpp: 6,
+                            interval: 30000,
+                            width: 260,
+                            height: 300,
+                            theme: {
+                                shell: {
+                                    background: '#998D62',
+                                    color: '#ffffff'
+                                },
+                                tweets: {
+                                    background: '#ffffff',
+                                    color: '#444444',
+                                    links: '#857022'
+                                }
+                            },
+                            features: {
+                                scrollbar: false,
+                                loop: false,
+                                live: false,
+                                behavior: 'all'
+                            }
+                        }).render().setUser('KickJS').start();
+                    })();
                 </script>
             </div>
         </div>
