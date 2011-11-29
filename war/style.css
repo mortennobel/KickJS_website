@@ -1,4 +1,4 @@
-// Current color theme is http://colorschemedesigner.com/#1i11UfvpEw0w0
+/* Current color theme is http://colorschemedesigner.com/#1i11UfvpEw0w0 */
 
 #doc {
     margin:auto; /* center in viewport */
@@ -88,12 +88,12 @@ h1#BigFont {
 /* Clearfix: http://csscreator.com/attributes/containedfloat.php        */
 /* ******************************************************************** */
 .clearfix:after {
- content: ".";
- display: block;
-height: 0;
- clear: both;
- visibility: hidden;
- }
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 
 .clearfix{display: inline-block;}
 
