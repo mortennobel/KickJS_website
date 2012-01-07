@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-public class JSONRequest extends HttpServlet {
+public abstract class JSONRequest extends HttpServlet {
     protected JSONObject doGet(JSONObject jsonRequest, HttpServletRequest req) throws JSONException {
         return new JSONObject();
     }

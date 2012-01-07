@@ -3,23 +3,15 @@ package org.kickjs.shared;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.sun.deploy.net.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.jdo.JDOObjectNotFoundException;
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.Date;
-import java.util.logging.Logger;
 
 public class LoginInfo extends JSONRequest {
     protected JSONObject doGet(JSONObject jsonRequest, HttpServletRequest req) throws JSONException {
