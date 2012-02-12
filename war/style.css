@@ -31,10 +31,10 @@ body{
     background-color: #E6D9A9;
 }
 
-a:link {color:#998D62;}      /* unvisited link */
-a:visited {color:#857022;}  /* visited link */
-a:hover {color:#CCB769;}  /* mouse over link */
-a:active {color:#CCB769;}  /* selected link */
+.content a:link {color:#998D62;}      /* unvisited link */
+.content a:visited {color:#857022;}  /* visited link */
+.content a:hover {color:#CCB769;}  /* mouse over link */
+.content a:active {color:#CCB769;}  /* selected link */
 
 h1#BigFont {
     font-size: 200px;
