@@ -59,6 +59,7 @@
         createMenuItem(examplesSubMenu, "Video ascii art", "/example/video_ascii_art/Video_Ascii_Art.html");
         createMenuItem(examplesSubMenu, "Model viewer", "/example/model_viewer/model_viewer.html");
         createMenuItem(examplesSubMenu, "Cloth simulation", "/example/cloth_simulation/cloth_simulation.html");
+        createMenuItem(examplesSubMenu, "Snake", "/example/snake/snake.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
     }
