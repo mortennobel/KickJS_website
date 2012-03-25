@@ -78,10 +78,15 @@ h1#BigFont {
 }
 
 .example_panel{
-    width: 270px;
+    width: 180px;
     float: left;
     margin-bottom: 30px;
     text-align: center;
+}
+
+.example_panel img{
+    width: 160px;
+    height: 80px;
 }
 
 /* ******************************************************************** */

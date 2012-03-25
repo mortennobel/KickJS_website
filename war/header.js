@@ -60,6 +60,7 @@
         createMenuItem(examplesSubMenu, "Model viewer", "/example/model_viewer/model_viewer.html");
         createMenuItem(examplesSubMenu, "Cloth simulation", "/example/cloth_simulation/cloth_simulation.html");
         createMenuItem(examplesSubMenu, "Snake", "/example/snake/snake.html");
+        createMenuItem(examplesSubMenu, "Chess", "/example/chess/chess.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
     }
