@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Part 0 - Installation - KickJS</title>
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+    <link href="../syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css" />
+    <link href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>Part 0 - Installation</h1>
+<p>KickJS can be downloaded from (either as zip-file – or you can clone the repository):<br>
+<a href="https://github.com/mortennobel/KickJS">https://github.com/mortennobel/KickJS</a></p>
+<p><a href="https://github.com/mortennobel/KickJS"><img src="images/github-kickjs.png" border="1" title="Download library from GitHub"/></a></p></p>
+<p>To use KickJS in a project, you need to use the JavaScript library found in the build folder. Note that the library exists in two versions:</p>
+<ul>
+<li><b>kick-min-NN.NN.NN.js</b>: This is the minified version of KickJS. Besides several runtime checks has been disabled to increase runtime performance. This version should be used in production environments.</li>
+<li><b>kick-debug-NN.NN.NN.js</b>: This is the uncompressed version of KickJS. It has several built-in checks that logs an error whenever the library is used incorrect. This version should be used during development.</li>
+</ul>
+<p>Besides KickJS you need a WebGL capable browser. You can get more info here:<br>
+<a href="http://get.webgl.org/">http://get.webgl.org/</a>
+</p>
+<p>
+To use KickJS you need to include the library in the html-page:</p>
+<pre class="brush: xml">
+    &lt;html&gt;
+    &lt;body&gt;
+    &lt;canvas id=&quot;3dCanvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;
+
+    &lt;script type=&quot;text/javascript&quot; src=&quot;kick-debug-0.4.0.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    // init engine (create 3d context)
+    var engine = new KICK.core.Engine('3dCanvas');
+    &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</pre>
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
+</body>
+
+</html>
