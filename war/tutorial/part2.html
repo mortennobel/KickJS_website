@@ -1,10 +1,58 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
-    <title> - KickJS</title>
-</head>
-<body>
+    <script type="text/javascript">
 
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26354413-1']);
+        _gaq.push(['_setDomainName', 'kickjs.org']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0/build/cssreset/reset-min.css&3.5.0/build/cssfonts/fonts-min.css&3.5.0/build/cssgrids/grids-min.css&3.5.0/build/cssbase/base-min.css&3.5.0/build/cssbutton/cssbutton.css">
+    <script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
+    <link href='../style.css' rel='stylesheet' type='text/css'>
+    <title>Part 2 – Materials and shaders</title>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+        <link href="../syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="yui3-skin-sam">
+<div id="page">
+<header>
+</header>
+<article class="content">
+    <div id="wrapper" class="clearfix">
+        <div id="singlecol">
+<h1>Part 2 – Materials and shaders</h1>
+<p>In KickJS a Mesh rendered with a MeshRenderer component needs a Material. A material is basically an instance of a shader. </p>
+<p>The Shader object determines how a vertex is transformed (the vertex shader) and how rasterized pixels are drawn (the fragment shader).  The Shader object also contains several states that determine how WebGL draw the pixels to the screen (such as blend, depth mash, z-test and polygon offset).</p>
+<p>The vertex shader and the fragment shader can expose uniform variables that can be set for each object rendered. In the Shader object, default values for these uniforms exist, and in the Material object, these uniform properties can be set using setUniform method. The shader also has a list of vertex attributes, which is the data, stored per vertex in the mesh. There needs to be correspondence between what data the shader needs and what data the mesh has.</p>
+<p><img src="images/shader_input.png"/> </p>
+    <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
+    <ul>
+    <li>Open the following fiddle <a href="http://jsfiddle.net/MBRW5/" target="_blank">http://jsfiddle.net/MBRW5/</a> and try to change the color of the mesh. Try to not set any mainColor by deleting the line (this will make use of the default color).</li>
+    </ul>
+ <p>KickJS has reserved uniforms starting with underscore (_) to have a special meaning. These uniforms are set automatically each time the object is being rendered. An example of this is the transformation of the model, the time and light information. See the full list of automatic uniforms in the shader documentation: <a href="http://www.kickjs.org/api/classes/KICK.material.Shader.html">http://www.kickjs.org/api/classes/KICK.material.Shader.html</a></p>
+        <p>KickJS has a number of built-in shaders. A complete list can be found in the documentation (<a href="http://www.kickjs.org/api/classes/KICK.core.Project.html">http://www.kickjs.org/api/classes/KICK.core.Project.html</a> )</p>
+        </div>
+    </div>
+</article>
+    <script type="text/javascript">
+         SyntaxHighlighter.all()
+    </script>
+
+    <script type="text/javascript" src="../header.js"></script>
+
+</div>
 </body>
+
 </html>

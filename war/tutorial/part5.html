@@ -1,0 +1,147 @@
+
+<html>
+<head>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26354413-1']);
+        _gaq.push(['_setDomainName', 'kickjs.org']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0/build/cssreset/reset-min.css&3.5.0/build/cssfonts/fonts-min.css&3.5.0/build/cssgrids/grids-min.css&3.5.0/build/cssbase/base-min.css&3.5.0/build/cssbutton/cssbutton.css">
+    <script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
+    <link href='../style.css' rel='stylesheet' type='text/css'>
+    <title>Part 5 – Key input</title>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+        <link href="../syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="yui3-skin-sam">
+<div id="page">
+<header>
+</header>
+<article class="content">
+    <div id="wrapper" class="clearfix">
+        <div id="singlecol">
+<h1>Part 5 – Key input</h1>
+<p>JavaScript is usually event driven. This means that you can subscribe for events and provide some methods that will be invoked when the event happens. For example you can subscribe for key down and key up events.</p>
+<p>When writing a game if are often more interested in knowing the current state of a key each frame. For this reason KickJS wraps the event driven model and exposes a state based model.</p>
+<p>
+    There are basically 3 types of key states in KickJS:
+<ul>
+<li>isKey: returns true when a key is held down</li>
+<li>isKeyDown: returns true in the first frame where the key is pressed</li>
+<li>isKeyUp: return true in the first frame where the key is released</li>
+        </ul>
+</p>
+<p>The documentation for KeyInput is available here: <a href="http://www.kickjs.org/api/classes/KICK.core.KeyInput.html">http://www.kickjs.org/api/classes/KICK.core.KeyInput.html</a></p>
+            <p>Let’s take a look at some code:</p>
+
+<pre  class="brush: js">
+var RotatorComponent = function(config){
+var rotationEuler = [0,0,0],
+        thisObj = this,
+        keyInput,
+        transform,
+        time,
+        currentSpeed = 0;
+
+this.rotationSpeed = config.rotationSpeed;
+this.keyCode = config.keyCode;
+
+
+this.activated = function(){
+    var gameObject = thisObj.gameObject,
+            engine = gameObject.engine;
+    time = engine.time;
+    transform = gameObject.transform;
+    keyInput = engine.keyInput;
+};
+
+this.update = function(){
+    var deltaTime = time.deltaTime;
+    if (keyInput.isKey(thisObj.keyCode)){
+        // accelerate
+        currentSpeed += config.rotationSpeed*deltaTime;
+    } else {
+        // de-accelerate
+        currentSpeed = Math.max(0,currentSpeed-config.rotationSpeed*deltaTime);
+    }
+    // apply current rotation
+    rotationEuler[2] += deltaTime*currentSpeed;
+    transform.localRotationEuler = rotationEuler;
+};
+};
+
+// init engine (create 3d context)
+var engine = new KICK.core.Engine('canvas');
+
+// create a game object in [0,0,0] facing down the -z axis
+var cameraObject = engine.activeScene.createGameObject();
+cameraObject.transform.position = [0,0,5];
+// create a orthographic camera
+var camera = new KICK.scene.Camera({
+    perspective: false,
+    left:-5,
+    right:5,
+    top:5,
+    bottom:-5
+});
+cameraObject.addComponent(camera);
+
+// create material
+var shader = engine.project.load(engine.project.ENGINE_SHADER_UNLIT);
+var material = new KICK.material.Material(engine,{
+    shader: shader
+});
+
+// create meshes
+var meshes = [engine.project.ENGINE_MESH_TRIANGLE, engine.project.ENGINE_MESH_CUBE];
+var keyCodes = [&quot;1&quot;,&quot;2&quot;];
+var rotationAcceleration = [0.0002,0.00032];
+
+for (var i=0;i&lt;meshes.length;i++){
+    var gameObject = engine.activeScene.createGameObject();
+    gameObject.transform.position = [-2.0+4*i,0,0];
+    var meshRenderer = new KICK.scene.MeshRenderer();
+    meshRenderer.mesh = engine.project.load(meshes[i]);
+    meshRenderer.material = material;
+    gameObject.addComponent(meshRenderer);
+    gameObject.addComponent(new RotatorComponent(
+            {
+                rotationSpeed:rotationAcceleration[i],
+                keyCode:keyCodes[i].charCodeAt(0)
+            }));
+}
+</pre>
+
+    <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
+    <ul>
+    <li>See the example in following fiddle <a href="http://jsfiddle.net/JRXbL/" target="_blank">http://jsfiddle.net/JRXbL/</a>.</li>
+    <li>Let the objects rotate 45 degrees clockwise when the '3' is isKeyDown</li>
+    <li>Let the objects rotate 45 degrees counter-clockwise when the '4' is isKeyUp</li>
+    </ul>
+
+
+        </div>
+    </div>
+</article>
+    <script type="text/javascript">
+         SyntaxHighlighter.all()
+    </script>
+
+    <script type="text/javascript" src="../header.js"></script>
+
+</div>
+</body>
+
+</html>

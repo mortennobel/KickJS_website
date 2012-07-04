@@ -1,0 +1,187 @@
+
+<html>
+<head>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26354413-1']);
+        _gaq.push(['_setDomainName', 'kickjs.org']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0/build/cssreset/reset-min.css&3.5.0/build/cssfonts/fonts-min.css&3.5.0/build/cssgrids/grids-min.css&3.5.0/build/cssbase/base-min.css&3.5.0/build/cssbutton/cssbutton.css">
+    <script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
+    <link href='../style.css' rel='stylesheet' type='text/css'>
+    <title>Part 4 – Scripting and time</title>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+        <link href="../syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="yui3-skin-sam">
+<div id="page">
+<header>
+</header>
+<article class="content">
+    <div id="wrapper" class="clearfix">
+        <div id="singlecol">
+<h1>Part 4 – Scripting and time</h1>
+<p>So far our simple examples has only been static. But through scripting you can make put some life into the screen.</p>
+<p>Script can be implemented using JavaScript objects that implement one or more of the following methods (update, render, activated, deactivated) (These methods are defined in the Component  - See the <a href="http://www.kickjs.org/api/classes/KICK.scene.Component.html">http://www.kickjs.org/api/classes/KICK.scene.Component.html</a> ).
+The most important of these methods are the update method, which is called once per frame for each active component (an active component means that it is added to a GameObject in the active scene).
+</p>
+    <p>
+        Let’s look at a simple example:
+    </p>
+
+<pre  class="brush: js">
+var RotatorComponent = function(config){
+    var rotationEuler = [0,0,0],
+            thisObj = this;
+
+    this.rotationSpeed = config.rotationSpeed;
+
+    this.update = function(){
+        var gameObject = thisObj.gameObject,
+                transform = gameObject.transform,
+                time = gameObject.engine.time,
+                deltaTime = time.deltaTime;
+        rotationEuler[2] += deltaTime*thisObj.rotationSpeed;
+        transform.localRotationEuler = rotationEuler;
+    };
+};
+
+// init engine (create 3d context)
+var engine = new KICK.core.Engine('canvas');
+
+// create a game object in [0,0,0] facing down the -z axis
+var cameraObject = engine.activeScene.createGameObject();
+cameraObject.transform.position = [0,0,5];
+// create a orthographic camera
+var camera = new KICK.scene.Camera({
+    perspective: false,
+    left:-5,
+    right:5,
+    top:5,
+    bottom:-5
+});
+cameraObject.addComponent(camera);
+
+// create material
+var shader = engine.project.load(engine.project.ENGINE_SHADER_UNLIT);
+var material = new KICK.material.Material(engine,{
+    shader: shader,
+    uniformData:{
+        mainColor: [1,1,1,1]
+    }
+});
+
+// create meshes
+var meshes = [engine.project.ENGINE_MESH_TRIANGLE, engine.project.ENGINE_MESH_CUBE];
+for (var i=0;i&lt;meshes.length;i++){
+    var gameObject = engine.activeScene.createGameObject();
+    gameObject.transform.position = [-2.0+4*i,0,0];
+    var meshRenderer = new KICK.scene.MeshRenderer();
+    meshRenderer.mesh = engine.project.load(meshes[i]);
+    meshRenderer.material = material;
+    gameObject.addComponent(meshRenderer);
+    var rotationSpeed = i-0.4;
+    gameObject.addComponent(new RotatorComponent({rotationSpeed:rotationSpeed}));
+}
+
+</pre>
+<p>Here two RotatorComponent objects are created (one for each of the visible GameObjects). The RotatorComponent constructor function takes an input parameter containing the rotation speed. Also note how each component has a reference to the GameObject owning this component.</p>
+<p>Note that the code uses the Time object (received from the Engine object). The Time object let you create animation that runs independent of the framerate. The time object also contains time (since start of program), frame (count) and a scale property that can be used to implement slow-motion effects easily (is basically multiplied with the delta time).</p>
+    <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
+    <ul>
+    <li>See the example in following fiddle <a href="http://jsfiddle.net/jvKSB/" target="_blank">http://jsfiddle.net/jvKSB/</a>.</li>
+    <li>Try to change the rotation speed.</li>
+    <li>Try to change the time.scale.</li>
+    </ul>
+
+<p>Sometimes your Component need to do some initialization. Note that when the component constructor is called the component may not be setup properly (for instance it does not have any reference to any GameObject yet). A way to do this is to implement the activated method. This method will be called when the component is added to the scene.</p>
+            <pre  class="brush: js">
+
+var RotatorComponent = function(config){
+var transform,
+        time,
+        rotationEuler = [0,0,0],
+        thisObj = this;
+
+this.rotationSpeed = config.rotationSpeed || 0.1;
+
+// Get references to objects used in the update method performs better
+this.activated = function(){
+    transform = thisObj.gameObject.transform;
+    time = thisObj.gameObject.engine.time;
+};
+
+this.update = function(){
+    rotationEuler[2]+=time.deltaTime*thisObj.rotationSpeed;
+    transform.localRotationEuler = rotationEuler;
+};
+};
+
+// init engine (create 3d context)
+var engine = new KICK.core.Engine('canvas');
+
+// create a game object in [0,0,0] facing down the -z axis
+var cameraObject = engine.activeScene.createGameObject();
+cameraObject.transform.position = [0,0,5];
+// create a orthographic camera
+var camera = new KICK.scene.Camera({
+perspective: false,
+left:-5,
+right:5,
+top:5,
+bottom:-5
+});
+cameraObject.addComponent(camera);
+
+// create material
+var shader = engine.project.load(engine.project.ENGINE_SHADER_UNLIT);
+var material = new KICK.material.Material(engine,{
+    shader: shader,
+    uniformData:{
+        mainColor: [1,1,1,1]
+    }
+});
+
+// create meshes
+var meshes = [engine.project.ENGINE_MESH_TRIANGLE, engine.project.ENGINE_MESH_CUBE];
+for (var i=0;i&lt;meshes.length;i++){
+    var gameObject = engine.activeScene.createGameObject();
+    gameObject.transform.position = [-2.0+4*i,0,0];
+    var meshRenderer = new KICK.scene.MeshRenderer();
+    meshRenderer.mesh = engine.project.load(meshes[i]);
+    meshRenderer.material = material;
+    gameObject.addComponent(meshRenderer);
+    var rotationSpeed = i-0.4;
+    gameObject.addComponent(new RotatorComponent({rotationSpeed:rotationSpeed}));
+}
+
+            </pre>
+            <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
+                <ul>
+                <li>See the example in following fiddle <a href="http://jsfiddle.net/WNbL9/" target="_blank">http://jsfiddle.net/WNbL9/</a>.</li>
+                </ul>
+        </div>
+    </div>
+</article>
+    <script type="text/javascript">
+         SyntaxHighlighter.all()
+    </script>
+
+    <script type="text/javascript" src="../header.js"></script>
+
+</div>
+</body>
+
+</html>

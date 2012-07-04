@@ -1,0 +1,105 @@
+
+<html>
+<head>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-26354413-1']);
+        _gaq.push(['_setDomainName', 'kickjs.org']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0/build/cssreset/reset-min.css&3.5.0/build/cssfonts/fonts-min.css&3.5.0/build/cssgrids/grids-min.css&3.5.0/build/cssbase/base-min.css&3.5.0/build/cssbutton/cssbutton.css">
+    <script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
+    <link href='../style.css' rel='stylesheet' type='text/css'>
+    <title>Part 3 – Shader Editor</title>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushXml.js"></script>
+        <link href="../syntaxhighlighter_3.0.83/styles/shCore.css" rel="stylesheet" type="text/css" />
+        <link href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="yui3-skin-sam">
+<div id="page">
+<header>
+</header>
+<article class="content">
+    <div id="wrapper" class="clearfix">
+        <div id="singlecol">
+<h1>Part 3 – Shader Editor</h1>
+<p>Besides the built-in shaders, KickJS also support custom built shaders. These shaders can be created using the KickJS shader editor.</p>
+
+<p><a href="http://www.kickjs.org/example/shader_editor/shader_editor.html"><img src="images/glsl_editor.jpg" alt="" border="0"></a></p>
+<p><a href="http://www.kickjs.org/example/shader_editor/shader_editor.html">http://www.kickjs.org/example/shader_editor/shader_editor.html</a></p>
+
+    <p>
+        The following code shows how to setup a custom shader in KickJS:
+    </p>
+
+<pre  class="brush: js">
+    // init engine (create 3d context)
+    var engine = new KICK.core.Engine('canvas');
+    // create a game object in [0,0,0] facing down the -z axis
+    var cameraObject = engine.activeScene.createGameObject();
+    cameraObject.transform.position = [0,0,5];
+    // create a orthographics camera
+    var camera = new KICK.scene.Camera({
+        perspective: false,
+        left:-5,
+        right:5,
+        top:5,
+        bottom:-5
+    });
+    cameraObject.addComponent(camera);
+    // create shader - Note that it is bad practice to inline GLSL shader code in JavaScript
+    var vertexShaderStr = &quot;attribute vec3 vertex;\n&quot;+
+        &quot;uniform mat4 _mvProj;\n&quot;+
+        &quot;void main(void) {\n&quot;+
+        &quot;    gl_Position = _mvProj * vec4(vertex, 1.0);\n&quot;+
+        &quot;}&quot;;
+    var fragmentShaderStr = &quot;uniform highp float _time;\n&quot;+
+        &quot;void main(void) {\n&quot;+
+        &quot;  highp float fraction = mod(_time/1000.0,1.0);\n&quot;+
+        &quot;  gl_FragColor = vec4(fraction,fraction,fraction, 1.0);\n&quot;+
+        &quot;}&quot;;
+    var shader = new KICK.material.Shader(engine, {
+        vertexShaderSrc: vertexShaderStr,
+        fragmentShaderSrc: fragmentShaderStr
+    });
+    var material = new KICK.material.Material(engine,{
+        shader: shader,
+        uniformData:{
+        }
+    });
+    // create cube
+    var gameObject = engine.activeScene.createGameObject();
+    gameObject.transform.position = [0.0,0,0];
+    var meshRenderer = new KICK.scene.MeshRenderer();
+    meshRenderer.mesh = engine.project.load(engine.project.ENGINE_MESH_CUBE);
+    meshRenderer.material = material;
+    gameObject.addComponent(meshRenderer);&#x200b;
+</pre>
+
+    <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
+    <ul>
+    <li>Create a simple shader in the <a href="http://www.kickjs.org/example/shader_editor/shader_editor.html">KickJS Shader Editor</a> and try to setup the shader using KickJS using the following fiddle <a href="http://jsfiddle.net/uXGsZ/" target="_blank">http://jsfiddle.net/uXGsZ/</a>.</li>
+    </ul>
+        </div>
+    </div>
+</article>
+    <script type="text/javascript">
+         SyntaxHighlighter.all()
+    </script>
+
+    <script type="text/javascript" src="../header.js"></script>
+
+</div>
+</body>
+
+</html>
