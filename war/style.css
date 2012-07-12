@@ -63,6 +63,13 @@ h1#BigFont {
     
 }
 
+#singlecol {
+    float: left;
+    position: relative;
+    width: 860px;
+    padding: 20px 20px 20px 20px;
+}
+
 #maincol {
     float: left;
     position: relative;

@@ -1,6 +1,6 @@
 (function (){
     "use strict";
-    function createMenuItem(parent, label, link){
+    function createMenuItem(parent, label, link, title){
         var li = document.createElement("li");
         li.className = "yui3-menuitem";
         parent.appendChild(li);
@@ -9,6 +9,9 @@
         a.className = "yui3-menuitem-content";
         a.href = link;
         a.appendChild(document.createTextNode(label));
+        if (title){
+            a.title = title;
+        }
     }
 
     function buildSubMenu(parent, label, id){
@@ -54,6 +57,12 @@
         var documentationSubMenu = buildSubMenu(ul,"Documentation","documentation");
         createMenuItem(documentationSubMenu, "API", "/api/index.html");
         createMenuItem(documentationSubMenu, "Tutorial", "/tutorial/index.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 0 - Installation", "/tutorial/part0.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 1 - The component based scenegraph", "/tutorial/part1.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 2 - Materials and shaders", "/tutorial/part2.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 3 - Shader Editor", "/tutorial/part3.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 4 - Scripting and time", "/tutorial/part4.html");
+        createMenuItem(documentationSubMenu, "Tutorial - 5 - Key Input", "/tutorial/part5.html");
         var examplesSubMenu = buildSubMenu(ul,"Examples","examples");
         createMenuItem(examplesSubMenu, "Shader editor", "/example/shader_editor/shader_editor.html");
         createMenuItem(examplesSubMenu, "Video ascii art", "/example/video_ascii_art/Video_Ascii_Art.html");
@@ -63,6 +72,7 @@
         createMenuItem(examplesSubMenu, "Chess", "/example/chess/chess.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
+        createMenuItem(ul, "Ask a question", "http://stackoverflow.com/questions/ask?tags=kickjs,webgl", "Questions? We will be happy to help you on StackOverflow.com.");
     }
 
     if (!window.YUI){

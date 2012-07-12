@@ -1,5 +1,5 @@
 <project name="KICK.js">
-  <property name="appengine.sdk" location="/project/javalibs/appengine-java-sdk-1.6.0" />
+  <property name="appengine.sdk" location="/project/javalibs/appengine-java-sdk" />
 
   <import file="${appengine.sdk}/config/user/ant-macros.xml" />
 
@@ -46,7 +46,7 @@
 
   <target name="runserver" depends="datanucleusenhance"
       description="Starts the development server.">
-    <dev_appserver war="war" />
+    <dev_appserver war="war" port="8888" />
   </target>
 
   <target name="update" depends="datanucleusenhance"
