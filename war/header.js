@@ -70,8 +70,8 @@
         createMenuItem(examplesSubMenu, "Cloth simulation", "/example/cloth_simulation/cloth_simulation.html");
         createMenuItem(examplesSubMenu, "Snake", "/example/snake/snake.html");
         createMenuItem(examplesSubMenu, "Chess", "/example/chess/chess.html");
-        createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS");
-        createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues");
+        createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS", "Find the full source on GitHub");
+        createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues", "Report bugs on GitHub");
         createMenuItem(ul, "Ask a question", "http://stackoverflow.com/questions/ask?tags=kickjs,webgl", "Questions? We will be happy to help you on StackOverflow.com.");
     }
 
