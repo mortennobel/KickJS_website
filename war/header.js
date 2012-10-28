@@ -64,20 +64,20 @@
         createMenuItem(documentationSubMenu, "Tutorial - 4 - Scripting and time", "/tutorial/part4.html");
         createMenuItem(documentationSubMenu, "Tutorial - 5 - Key Input", "/tutorial/part5.html");
         var examplesSubMenu = buildSubMenu(ul,"Examples","examples");
-        createMenuItem(examplesSubMenu, "Shader editor", "/example/shader_editor/shader_editor.html");
-        createMenuItem(examplesSubMenu, "Video ascii art", "/example/video_ascii_art/Video_Ascii_Art.html");
-        createMenuItem(examplesSubMenu, "Model viewer", "/example/model_viewer/model_viewer.html");
+        createMenuItem(examplesSubMenu, "Shader editor",    "/example/shader_editor/shader_editor.html");
+        createMenuItem(examplesSubMenu, "Video ascii art",  "/example/video_ascii_art/Video_Ascii_Art.html");
+        createMenuItem(examplesSubMenu, "WebCam ascii art", "/example/webcam_ascii_art/Webcam_Ascii_Art.html");
+        createMenuItem(examplesSubMenu, "Model viewer",     "/example/model_viewer/model_viewer.html");
         createMenuItem(examplesSubMenu, "Cloth simulation", "/example/cloth_simulation/cloth_simulation.html");
-        createMenuItem(examplesSubMenu, "Snake", "/example/snake/snake.html");
-        createMenuItem(examplesSubMenu, "Chess", "/example/chess/chess.html");
+        createMenuItem(examplesSubMenu, "Snake",            "/example/snake/snake.html");
+        createMenuItem(examplesSubMenu, "Chess",            "/example/chess/chess.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS", "Find the full source on GitHub");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues", "Report bugs on GitHub");
         createMenuItem(ul, "Ask a question", "http://stackoverflow.com/questions/ask?tags=webgl&title=KickJS", "Questions? We will be happy to help you on StackOverflow.com.");
     }
 
     if (!window.YUI){
-        console.log("YUI not loaded");
-        return;
+        console.log("YUI not loaded"); return;
     }
 
     window.YUI().use('node-menunav', function (Y) {
