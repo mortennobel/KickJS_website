@@ -39,26 +39,37 @@
 <p><a href="https://github.com/mortennobel/KickJS"><img src="images/github-kickjs.png" border="1" title="Download library from GitHub"/></a></p></p>
 <p>To use KickJS in a project, you need to use the JavaScript library found in the build folder. Note that the library exists in two versions:</p>
 <ul>
-<li><b>kick-min-NN.NN.NN.js</b>: This is the minified version of KickJS. Besides several runtime checks has been disabled to increase runtime performance. This version should be used in production environments.</li>
-<li><b>kick-debug-NN.NN.NN.js</b>: This is the uncompressed version of KickJS. It has several built-in checks that logs an error whenever the library is used incorrect. This version should be used during development.</li>
+<li><b>kick.js</b>: This is the minified version of KickJS. Several runtime checks has been disabled to increase runtime performance. This version should be used in production environments.</li>
+<li><b>kick-debug.js</b>: This is the uncompressed version of KickJS. It has several built-in checks that logs an error whenever the library is used incorrect. This version should be used during development.</li>
 </ul>
 <p>Besides KickJS you need a WebGL capable browser. You can get more info here:<br>
 <a href="http://get.webgl.org/">http://get.webgl.org/</a>
 </p>
 <p>
-To use KickJS you need to include the library in the html-page:</p>
-<pre class="brush: xml">
-    &lt;html&gt;
-    &lt;body&gt;
-    &lt;canvas id=&quot;3dCanvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;
+    KICKJS depends on RequireJS (http://requirejs.org/) for loading JavaScript files and modules.
+    RequireJS can be configured in multiple ways, but the code below shows a simple setup.
+    The code snippet assumes that require.js and kick.js is located in the same location as the html-file.
+    All the code-snippet does is loading the engine and printing out the version to the JavaScript-console.
+</p>
 
-    &lt;script type=&quot;text/javascript&quot; src=&quot;kick-debug-0.4.0.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-    // init engine (create 3d context)
-    var engine = new KICK.core.Engine('3dCanvas');
-    &lt;/script&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
+<pre class="brush: xml">
+&lt;html&gt;
+&lt;body&gt;
+&lt;canvas id="3dCanvas" width="500" height="500"&gt;&lt;/canvas&gt;
+
+&lt;script src="require.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+ var req = require.config({});
+ req(['kick'], // to load a debug version, use 'kick-debug' instead of 'kick'
+     function (kick) {
+         // init engine (create 3d context)
+         var engine = new kick.core.Engine('3dCanvas');
+         console.log("Engine loaded. KickJS "+engine.version);
+     }
+ );
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
         </div>
     </div>

@@ -43,53 +43,54 @@
     </p>
 
 <pre  class="brush: js">
-    // init engine (create 3d context)
-    var engine = new KICK.core.Engine('canvas');
-    // create a game object in [0,0,0] facing down the -z axis
-    var cameraObject = engine.activeScene.createGameObject();
-    cameraObject.transform.position = [0,0,5];
-    // create a orthographics camera
-    var camera = new KICK.scene.Camera({
-        perspective: false,
-        left:-5,
-        right:5,
-        top:5,
-        bottom:-5
-    });
-    cameraObject.addComponent(camera);
-    // create shader - Note that it is bad practice to inline GLSL shader code in JavaScript
-    var vertexShaderStr = &quot;attribute vec3 vertex;\n&quot;+
-        &quot;uniform mat4 _mvProj;\n&quot;+
-        &quot;void main(void) {\n&quot;+
-        &quot;    gl_Position = _mvProj * vec4(vertex, 1.0);\n&quot;+
-        &quot;}&quot;;
-    var fragmentShaderStr = &quot;uniform highp float _time;\n&quot;+
-        &quot;void main(void) {\n&quot;+
-        &quot;  highp float fraction = mod(_time/1000.0,1.0);\n&quot;+
-        &quot;  gl_FragColor = vec4(fraction,fraction,fraction, 1.0);\n&quot;+
-        &quot;}&quot;;
-    var shader = new KICK.material.Shader(engine, {
-        vertexShaderSrc: vertexShaderStr,
-        fragmentShaderSrc: fragmentShaderStr
-    });
-    var material = new KICK.material.Material(engine,{
-        shader: shader,
-        uniformData:{
-        }
-    });
-    // create cube
-    var gameObject = engine.activeScene.createGameObject();
-    gameObject.transform.position = [0.0,0,0];
-    var meshRenderer = new KICK.scene.MeshRenderer();
-    meshRenderer.mesh = engine.project.load(engine.project.ENGINE_MESH_CUBE);
-    meshRenderer.material = material;
-    gameObject.addComponent(meshRenderer);&#x200b;
+// init engine (create 3d context)
+ var engine = new kick.core.Engine('3dCanvas');
+ // create a game object in [0,0,0] facing down the -z axis
+ var cameraObject = engine.activeScene.createGameObject();
+ cameraObject.transform.position = [0,0,5];
+ // create a orthographics camera
+ var camera = new kick.scene.Camera({
+      perspective: false,
+      left:-5,
+      right:5,
+      top:5,
+      bottom:-5
+ });
+ cameraObject.addComponent(camera);
+ // create shader - Note that it is bad practice to inline GLSL shader code in JavaScript
+ var vertexShaderStr = "attribute vec3 vertex;\n"+
+      "uniform mat4 _mvProj;\n"+
+      "void main(void) {\n"+
+      " gl_Position = _mvProj * vec4(vertex, 1.0);\n"+
+      "}";
+ var fragmentShaderStr = "uniform highp float _time;\n"+
+      "void main(void) {\n"+
+      " highp float fraction = mod(_time/1000.0,1.0);\n"+
+      " gl_FragColor = vec4(fraction,fraction,fraction, 1.0);\n"+
+      "}";
+ var shader = new kick.material.Shader( {
+      vertexShaderSrc: vertexShaderStr,
+      fragmentShaderSrc: fragmentShaderStr
+ });
+ var material = new kick.material.Material({
+      shader: shader,
+      uniformData:{
+ }
+ });
+ // create cube
+ var gameObject = engine.activeScene.createGameObject();
+ gameObject.transform.position = [0.0,0,0];
+ var meshRenderer = new kick.scene.MeshRenderer();
+ meshRenderer.mesh = engine.project.load(engine.project.ENGINE_MESH_CUBE);
+ meshRenderer.material = material;
+ gameObject.addComponent(meshRenderer);
 </pre>
 
-    <p><img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">
-    <ul>
-    <li>Create a simple shader in the <a href="http://www.kickjs.org/example/shader_editor/shader_editor.html">KickJS Shader Editor</a> and try to setup the shader using KickJS using the following fiddle <a href="http://jsfiddle.net/uXGsZ/" target="_blank">http://jsfiddle.net/uXGsZ/</a>.</li>
-    </ul>
+    <p>
+        <!--<img style="background-color: #00008b;" src="http://jsfiddle.net/img/logo.png">-->
+    <!--<ul>-->
+    <!--<li>Create a simple shader in the <a href="http://www.kickjs.org/example/shader_editor/shader_editor.html">KickJS Shader Editor</a> and try to setup the shader using KickJS using the following fiddle <a href="http://jsfiddle.net/uXGsZ/" target="_blank">http://jsfiddle.net/uXGsZ/</a>.</li>-->
+    <!--</ul>-->
         </div>
     </div>
 </article>
