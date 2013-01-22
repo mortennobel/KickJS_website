@@ -28,13 +28,26 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RedirectShaderEditor</servlet-name>
+        <servlet-class>org.kickjs.shadereditor.Redirect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RedirectShaderEditor</servlet-name>
+        <url-pattern>/example/shader_editor/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectShaderEditor</servlet-name>
+        <url-pattern>/example/shader_editor</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>UpdateShader</servlet-name>
         <servlet-class>org.kickjs.shadereditor.UpdateShader</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateShader</servlet-name>
-        <url-pattern>/example/shader_editor/UpdateShader</url-pattern>
+        <url-pattern>/tool/shader_editor/UpdateShader</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>GetShader</servlet-name>
@@ -42,7 +55,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>GetShader</servlet-name>
-        <url-pattern>/example/shader_editor/GetShader</url-pattern>
+        <url-pattern>/tool/shader_editor/GetShader</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ImageProxy</servlet-name>
