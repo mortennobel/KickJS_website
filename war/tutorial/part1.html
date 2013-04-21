@@ -52,6 +52,7 @@
  var engine = new kick.core.Engine('3dCanvas');
  // create a game object in [0,0,0] facing down the -z axis
  var cameraObject = engine.activeScene.createGameObject();
+ // change the position of gameObject to [0,0,5]
  cameraObject.transform.position = [0,0,5];
  // create a orthographics camera
  var camera = new kick.scene.Camera({
