@@ -48,29 +48,36 @@
 <p>
     KICKJS depends on RequireJS (http://requirejs.org/) for loading JavaScript files and modules.
     RequireJS can be configured in multiple ways, but the code below shows a simple setup.
-    The code snippet assumes that require.js and kick.js is located in the same location as the html-file.
-    All the code-snippet does is loading the engine and printing out the version to the JavaScript-console.
+    The code snippet assumes that require.js and kick-debug.js is located in the same location as the html-file.
+    All the code-snippet does is loading the engine and printing out the version.
 </p>
 
 <pre class="brush: xml">
 &lt;html&gt;
 &lt;body&gt;
-&lt;canvas id="3dCanvas" width="500" height="500"&gt;&lt;/canvas&gt;
+&lt;canvas id="3dCanvas" width="50" height="50"&gt;&lt;/canvas&gt;
 
 &lt;script src="require.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
- var req = require.config({});
- req(['kick'], // to load a debug version, use 'kick-debug' instead of 'kick'
-     function (kick) {
-         // init engine (create 3d context)
-         var engine = new kick.core.Engine('3dCanvas');
-         console.log("Engine loaded. KickJS "+engine.version);
-     }
+ var req = require.config({
+    paths: {
+        kick: 'kick-debug'
+    }
+ });
+ req(['kick'],
+    function (kick) {
+        // init engine (create 3d context)
+        var engine = new kick.core.Engine('3dCanvas');
+        document.body.appendChild(document.createTextNode("Engine loaded. KickJS "+engine.version));
+    }
  );
 &lt;/script&gt;
+
 &lt;/body&gt;
 &lt;/html&gt;
 </pre>
+<p>The code snippet above creates a debug context (useful for development). For a release version of the engine replace 'kick-debug' with 'kick'.</p>
+<p>For the rest of the tutorial we assume that you already have loaded the kick module using RequireJS.</p>
         </div>
     </div>
 </article>
