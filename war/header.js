@@ -74,7 +74,7 @@
         createMenuItem(toolsSubMenu, "Model tool",    "/tool/model_tool/model_tool.html");
         createMenuItem(ul, "Source", "https://github.com/mortennobel/KickJS", "Find the full source on GitHub");
         createMenuItem(ul, "Bugs", "https://github.com/mortennobel/KickJS/issues", "Report bugs on GitHub");
-        createMenuItem(ul, "Ask a question", "http://stackoverflow.com/questions/ask?tags=webgl&title=KickJS", "Questions? Try StackOverflow.com.");
+//        createMenuItem(ul, "Ask a question", "http://stackoverflow.com/questions/ask?tags=webgl&title=KickJS", "Questions? Try StackOverflow.com.");
     }
 
     if (!window.YUI){

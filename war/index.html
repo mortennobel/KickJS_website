@@ -13,8 +13,8 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.5.0/build/cssreset/reset-min.css&3.5.0/build/cssfonts/fonts-min.css&3.5.0/build/cssgrids/grids-min.css&3.5.0/build/cssbase/base-min.css&3.5.0/build/cssbutton/cssbutton.css">
-    <script src="http://yui.yahooapis.com/3.5.0/build/yui/yui-min.js"></script>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/combo?3.8.1/build/cssreset/reset-min.css&3.8.1/build/cssfonts/fonts-min.css&3.8.1/build/cssgrids/grids-min.css&3.8.1/build/cssbase/base-min.css&3.8.1/build/cssbutton/cssbutton.css">
+    <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Coustard:400,900' rel='stylesheet' type='text/css'>
     <link href='style.css' rel='stylesheet' type='text/css'>
     <title>KickJS | WebGL game engine</title>
@@ -82,69 +82,9 @@
                 and go through the <a href="tutorial/index.html">tutorial</a>. Also take a look at the <a href="api/index.html">API documentation</a>.
             </div>
             <div id="rightcol" class="content">
-                <h2>KickJS mentions</h2>
-                <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-                <script>
-                    (function(){
-                        new TWTR.Widget({
-                            version: 2,
-                            type: 'search',
-                            search: 'Kickjs',
-                            interval: 15000,
-                            title: '',
-                            subject: 'KickJS tweets',
-                            width: 260,
-                            height: 300,
-                            theme: {
-                                shell: {
-                                    background: '#998D62',
-                                    color: '#ffffff'
-                                },
-                                tweets: {
-                                    background: '#ffffff',
-                                    color: '#444444',
-                                    links: '#857022'
-                                }
-                            },
-                            features: {
-                                scrollbar: false,
-                                loop: false,
-                                live: true,
-                                behavior: 'default'
-                            }
-                        }).render().start();
-                    })();
-                </script>
                 <h2>KickJS tweets</h2>
-                <script>
-                    (function(){
-                        new TWTR.Widget({
-                            version: 2,
-                            type: 'profile',
-                            rpp: 6,
-                            interval: 30000,
-                            width: 260,
-                            height: 300,
-                            theme: {
-                                shell: {
-                                    background: '#998D62',
-                                    color: '#ffffff'
-                                },
-                                tweets: {
-                                    background: '#ffffff',
-                                    color: '#444444',
-                                    links: '#857022'
-                                }
-                            },
-                            features: {
-                                scrollbar: false,
-                                loop: false,
-                                live: false,
-                                behavior: 'all'
-                            }
-                        }).render().setUser('KickJS').start();
-                    })();
-                </script>
+                <a class="twitter-timeline" href="https://twitter.com/KickJS" data-widget-id="326428726399221763">Tweets by @KickJS</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             </div>
         </div>
 	</div>
