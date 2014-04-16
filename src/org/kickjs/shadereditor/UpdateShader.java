@@ -50,7 +50,7 @@ public class UpdateShader extends JSONRequest {
             }
             if (s.getShortURL()==null ||s.getShortURL().length()==0){
                 try{
-                    String longURL = "http://"+req.getServerName()+"/example/shader_editor/shader_editor.html#"+ KeyFactory.keyToString(entity.getKey());
+                    String longURL = "http://"+req.getServerName()+"/tool/shader_editor/shader_editor.html#"+ KeyFactory.keyToString(entity.getKey());
                     String shortURL = URLShortener.getShortURL(longURL);
                     s.setShortURL(shortURL);
                 } catch (Exception e){

@@ -3,7 +3,6 @@ package org.kickjs.shared;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.sun.deploy.net.HttpRequest;
 
 import java.io.Serializable;
 import java.util.Date;
